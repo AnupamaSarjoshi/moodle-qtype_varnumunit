@@ -54,7 +54,7 @@ class qtype_varnumunit_test_helper extends question_test_helper {
                                                  '12345', // Answer.
                                                  '1',     // Fraction.
                                                  '<p>Your answer is correct.</p>', // Feedback.
-                                                 'html',  // Feedbackformat.
+                                                 FORMAT_HTML,  // Feedbackformat.
                                                  '3',     // Sigfigs.
                                                  '',      // Error.
                                                  '0.1',   // Syserrorpenalty.
@@ -68,7 +68,7 @@ class qtype_varnumunit_test_helper extends question_test_helper {
                                                  '*',     // Answer.
                                                  '0',     // Fraction.
                                                  '<p>Your answer is incorrect.</p>', // Feedback.
-                                                 'html',  // Feedbackformat.
+                                                 FORMAT_HTML,  // Feedbackformat.
                                                  '0',     // Sigfigs.
                                                  '',      // Error.
                                                  '0.1000000', // Syserrorpenalty.
@@ -125,7 +125,7 @@ class qtype_varnumunit_test_helper extends question_test_helper {
                                 '4000',  // Answer.
                                 '1',     // Fraction.
                                 '<p>Your answer is correct.</p>', // Feedback.
-                                'html',  // Feedbackformat.
+                                FORMAT_HTML,  // Feedbackformat.
                                 '4',     // Sigfigs.
                                 '',      // Error.
                                 '0.1000000', // Syserrorpenalty.
@@ -139,7 +139,7 @@ class qtype_varnumunit_test_helper extends question_test_helper {
                                  '*',    // Answer.
                                  '0',    // Fraction.
                                  '<p>Your answer is incorrect.</p>', // Feedback.
-                                 'html', // Feedbackformat.
+                                 FORMAT_HTML, // Feedbackformat.
                                  '0',    // Sigfigs.
                                  '',     // Error.
                                  '0.1000000', // Syserrorpenalty.
@@ -206,7 +206,7 @@ class qtype_varnumunit_test_helper extends question_test_helper {
             '1',    // Answer.
             '1',    // Fraction.
             '<p>Your answer is correct.</p>', // Feedback.
-            'html', // Feedbackformat.
+            FORMAT_HTML, // Feedbackformat.
             '0',    // Sigfigs.
             '',     // Error.
             '0.1000000', // Syserrorpenalty.
