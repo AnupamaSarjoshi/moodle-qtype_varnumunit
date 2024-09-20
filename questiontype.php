@@ -118,7 +118,7 @@ class qtype_varnumunit extends qtype_varnumeric_base {
             if (html_is_blank($formdata->unitsfeedback[$i]['text'])) {
                 $formdata->unitsfeedback[$i]['text'] = '';
             }
-            if (html_is_blank($formdata->spacesfeedback[$i]['text'])) {
+            if (!isset($formdata->spacesfeedback[$i]['text']) || html_is_blank($formdata->spacesfeedback[$i]['text'])) {
                 $formdata->spacesfeedback[$i]['text'] = '';
             }
             $this->save_unit($table,
