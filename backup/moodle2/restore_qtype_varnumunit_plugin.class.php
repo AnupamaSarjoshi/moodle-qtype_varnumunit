@@ -52,6 +52,51 @@ class restore_qtype_varnumunit_plugin extends restore_qtype_plugin {
         return $paths; // And we return the interesting paths.
     }
 
+    #[\Override]
+    public static function convert_backup_to_questiondata(array $backupdata): \stdClass {
+        $questiondata = parent::convert_backup_to_questiondata($backupdata);
+        $qtype = $questiondata->qtype;
+        if (isset($backupdata["plugin_qtype_{$qtype}_question"]['varnumunit'])) {
+            $questiondata->options = (object) array_merge(
+                (array) $questiondata->options,
+                $backupdata["plugin_qtype_{$qtype}_question"]['varnumunit'][0],
+            );
+        }
+
+        if (isset($backupdata["plugin_qtype_{$qtype}_question"]['varnumunit_answers']['varnumunit_answer'])) {
+            foreach ($backupdata["plugin_qtype_{$qtype}_question"]['varnumunit_answers']['varnumunit_answer']
+                as $varnumunitanswer) {
+                foreach ($questiondata->options->answers as &$answer) {
+                    if ($answer->id == $varnumunitanswer['answerid']) {
+                        $answer->sigfigs = $varnumunitanswer['sigfigs'];
+                        $answer->error = $varnumunitanswer['error'];
+                        $answer->syserrorpenalty = $varnumunitanswer['syserrorpenalty'];
+                        $answer->checknumerical = $varnumunitanswer['checknumerical'];
+                        $answer->checkscinotation = $varnumunitanswer['checkscinotation'];
+                        $answer->checkpowerof10 = $varnumunitanswer['checkpowerof10'];
+                        $answer->checkrounding = $varnumunitanswer['checkrounding'];
+                        $answer->checkscinotationformat = $varnumunitanswer['checkscinotationformat'];
+                        continue 2;
+                    }
+                }
+            }
+        }
+
+        if (isset($backupdata["plugin_qtype_{$qtype}_question"]['units']['unit'])) {
+            $questiondata->options->units = [];
+            foreach ($backupdata["plugin_qtype_{$qtype}_question"]['units']['unit'] as $varnumunit) {
+                $questiondata->options->units[] = (object) $varnumunit;
+            }
+        }
+        return $questiondata;
+    }
+
+    #[\Override]
+    public static function remove_excluded_question_data(stdClass $questiondata, array $excludefields = []): stdClass {
+        // Option recalculateeverytime default is null, we need to remove it completely.
+        unset($questiondata->options->recalculateeverytime);
+        return parent::remove_excluded_question_data($questiondata, $excludefields);
+    }
 
     /**
      * Process the qtype/varnumunit element.
